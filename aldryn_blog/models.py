@@ -270,6 +270,13 @@ class AuthorsPlugin(CMSPlugin):
         return generate_slugs(get_blog_authors())
 
 
+class CategoryPlugin(CMSPlugin):
+    category = models.ForeignKey(Category)
+
+    def get_posts(self):
+        return self.category.post_set.all()
+
+
 def force_language(sender, instance, **kwargs):
     if issubclass(sender, CMSPlugin) and instance.placeholder \
             and instance.placeholder.slot == 'aldryn_blog_post_content':

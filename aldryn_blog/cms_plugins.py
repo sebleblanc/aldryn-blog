@@ -37,6 +37,17 @@ class AuthorsPlugin(BlogPlugin):
         return context
 
 
+class CategoryPlugin(BlogPlugin):
+    render_template = 'aldryn_blog/plugins/category.html'
+    name = _('Category')
+    model = models.CategoryPlugin
+    filter_horizontal = ['category']
+
+    def render(self, context, instance, placeholder):
+        context['instance'] = instance
+        return context
+
+
 class BlogTagsPlugin(BlogPlugin):
 
     render_template = 'aldryn_blog/plugins/tags.html'
@@ -73,6 +84,7 @@ class BlogArchivePlugin(BlogPlugin):
 
 plugin_pool.register_plugin(LatestEntriesPlugin)
 plugin_pool.register_plugin(AuthorsPlugin)
+plugin_pool.register_plugin(CategoryPlugin)
 plugin_pool.register_plugin(BlogTagsPlugin)
 plugin_pool.register_plugin(BlogCategoriesPlugin)
 plugin_pool.register_plugin(BlogArchivePlugin)
